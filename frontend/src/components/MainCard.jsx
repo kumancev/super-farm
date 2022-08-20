@@ -27,7 +27,7 @@ const Card = styled.div`
 const CardBanner = styled.div`
     width: 90%;
     height: 3rem;
-    background-color: #2b2e35;
+    background-color: #212936;
     margin-top: 2rem;
     border: .3rem solid black;
     border-radius: 1.5rem;

@@ -20,6 +20,7 @@ const Box = styled.div`
     flex-direction: column;
     margin-top: 1rem;
     border: .3rem solid black;
+    border-radius: 6px;
 `;
 
 const Title = styled.div`
@@ -42,18 +43,20 @@ const Banner = styled.div`
 const ClaimButton = styled.button`
     height: 5rem;
     width: 100%;
-    background-color: black;
-    color: #7A3803;
+    background-color: #212936;
+    color: white;
     font-size: 1.2rem;
     cursor: pointer;
+    border: .3rem solid black;
+    border-radius: 6px;
 `;
 
 const TopBanner = styled.div`
     align-self: center;
     font-size: 1.65rem;
     font-weight: bold;
-    color: green;
-    text-shadow: .03rem .03rem #ED7014;
+    color: white;
+    text-shadow: .05rem .05rem black;
 `;
 
 const BottomBanner = styled.div`
@@ -65,7 +68,7 @@ const BottomBanner = styled.div`
 const Circle = styled.button`
     width: 12rem;
     height: 4rem;
-    border: .05rem dashed #ED7014;
+    border: .05rem solid #ED7014;
     border-radius: 1rem;
     background-color: transparent;
     color: yellow;

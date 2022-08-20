@@ -21,6 +21,7 @@ const Box = styled.div`
     flex-direction: column;
     margin-top: 1rem;
     border: .3rem solid black;
+    border-radius: 6px;
 `;
 
 const Title = styled.div`
@@ -54,10 +55,12 @@ const StakeInput = styled.input`
 const StakeButton = styled.button`
     height: 3rem;
     width: 50%;
-    background-color: black;
-    color: #7A3803;
+    background-color: #212936;
+    color: white;
     font-size: 1.2rem;
     cursor: pointer;
+    border: .2rem solid black;
+    border-radius: 6px;
 `;
 
 const AlignInput = styled.div`
@@ -84,7 +87,7 @@ const Circle = styled.button`
     font-size: 1rem;
     font-weight: bold;
     background-color: transparent;
-    border: .05rem dashed yellow;
+    border: .05rem solid yellow;
     border-radius: 1rem;
     display: flex;
     flex-direction: column;

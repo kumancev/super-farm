@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import styled from "styled-components";
 import { ethers } from "ethers";
 
@@ -8,11 +8,11 @@ import { useContract } from "../context/ContractContext"
 const MetaContainer = styled.div`
     height: 6rem;
     width: 100%;
-    background-color: #2b2e35;
+    background-color: #212936;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border-bottom: .04rem solid green;
+    border-bottom: .04rem solid white;
 `;
 
 const Container = styled.div`
@@ -22,8 +22,7 @@ const Container = styled.div`
 
 const Title = styled.div`
     font-size: 1.8rem;
-    color: #ED7014;
-    text-shadow: .03rem .03rem green;
+    color: white;
     margin-left: 2rem;
 `;
 
@@ -57,14 +56,14 @@ const Account = styled(AccountWrapper)`
     display: flex;
     justify-content: center;
     margin-right: 0;
-    color: #7A3803;
+    color: white;
     background: black;
 `;
 
 const Button = styled.button`
     width: 7rem;
     height: 2.2rem;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin-right: 2rem;
     border-radius: .8rem;
     cursor: pointer;
@@ -80,7 +79,7 @@ const Eth = styled.div`
 `;
 
  
-export default function NavBar() {
+export default function NavBar({ connectAccount, isConnected }) {
 
     const {
         userAddress,
@@ -91,6 +90,9 @@ export default function NavBar() {
         networkId,
     } = useContract();
 
+
+    console.log(userAddress)
+
     return(
             <MetaContainer>
                 <Container>
@@ -99,14 +101,25 @@ export default function NavBar() {
                         <Network>
                             { networkId ? networkId.charAt(0).toUpperCase() + networkId.slice(1) : "N/A" }
                         </Network>
-                        <AccountWrapper>
-                            <Eth>
-                                { ethBalance ? Number.parseFloat(ethers.utils.formatEther(ethBalance)).toPrecision(3) : "0" } ETH
-                            </Eth>
+                        {
+                            isConnected ? (
+                                <Button>Connected</Button>
+                                ) : (
+                                <Button
+                                    onClick={connectAccount}
+                                >
+                                    Connect
+                                </Button>
+                        )}
+                        {/* <AccountWrapper> */}
+
+                            {/* <Eth>
+                                
+                            </Eth> */}
                             <Account>
-                                { userAddress ? userAddress.slice(0, 5) + "..." + userAddress.slice(38, 42) : null }
+                                { userAddress ? userAddress.slice(0, 5) + `...` + userAddress.slice(-4) : null }
                             </Account>
-                        </AccountWrapper>
+                        {/* </AccountWrapper> */}
                     </SubContainer>
                 </Container>
             </MetaContainer>

@@ -10,14 +10,14 @@ import { useContract } from "../context/ContractContext";
 const Container = styled.div`
     height: 100%;
     width: 100%;
-    background-color: #2b2e35;
+    background-color: #212936;
 `;
 
-export default function Main() {
+export default function Main({ connectAccount, isConnected }) {
     
     return(
         <>
-        <NavBar />
+        <NavBar connectAccount={connectAccount} isConnected={isConnected} />
         <Container>
             <MainCard />
         </Container>

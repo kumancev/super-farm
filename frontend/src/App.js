@@ -17,10 +17,10 @@ const Container = styled.div`
 `;
 
 function App() {
-
-  /**
-   * @notice User state
-   */
+    
+    /**
+     * @notice User state
+     */
     const [userAddress, setUserAddress] = useState("")
     const [ethBalance, setEthBalance] = useState("")
     const [daiBalance, setDaiBalance] = useState("")
@@ -28,7 +28,18 @@ function App() {
     const [stakingBalance, setStakingBalance] = useState("")
     const [superYield, setSuperYield] = useState("")
     const [superUnrealizedYield, setSuperUnrealizedYield] = useState("")
-
+    
+    const isConnected = Boolean(userAddress);
+    
+    async function connectAccount() {
+        if (window.ethereum) {
+            const accounts = await window.ethereum.request({
+                method: "eth_requestAccounts",
+            });
+          setUserAddress(accounts.toString());
+        }
+    }
+    
     const userState = {
         userAddress, 
         setUserAddress,
@@ -131,12 +142,6 @@ function App() {
      * @notice userDidMount functions
      */
 
-    const loadUser = useCallback(async() => {
-        let accounts = provider.getSigner()
-        let account = await accounts.getAddress()
-        return account
-    }, [provider])
-
     const loadNetwork = useCallback(async() => {
         let netId = await provider.getNetwork()
         setNetworkId(netId["name"])
@@ -175,21 +180,20 @@ function App() {
 
     const userDidMount = useCallback(async() => {
     	try{
-    		await loadUser().then(res => {
-    			setUserAddress(res)
-    			loadEthBalance(res)
-    			loadDaiBalance(res)
-    			loadSuperBalance(res)
-    			loadStakingBalance(res)
-    			loadSuperYield(res)
-    			loadSuperUnrealizedYield(res)
-    		})
+    			
+    			loadEthBalance(userAddress)
+    			loadDaiBalance(userAddress)
+    			loadSuperBalance(userAddress)
+    			loadStakingBalance(userAddress)
+    			loadSuperYield(userAddress)
+    			loadSuperUnrealizedYield(userAddress)
+    	
     	} catch(error) {
     		console.log(error)
     	}
         await loadNetwork()
-    }, [
-        loadUser, 
+    }, [ 
+        userAddress,
         loadNetwork, 
         loadEthBalance, 
         loadDaiBalance,
@@ -231,10 +235,6 @@ function App() {
                 await loadSuperYield(userAddress)
                 await loadSuperBalance(userAddress)
             })
-
-            superFarmContract.on("MintNFT", async(userAddress) => {
-                await loadSuperBalance(userAddress)
-            })
         }
 
     /**
@@ -264,7 +264,7 @@ function App() {
         <Container>
           <ContractProvider value={contractState}>
             <UserProvider value={userState}>
-              	<Main />
+              	<Main connectAccount={connectAccount} isConnected={isConnected} />
             </UserProvider>
           </ContractProvider>
         </Container>
